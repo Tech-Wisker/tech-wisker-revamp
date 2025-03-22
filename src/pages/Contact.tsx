@@ -19,10 +19,10 @@ const Contact = () => {
               Get In Touch
             </div>
             <h1 className="tech-heading max-w-3xl mx-auto">
-              Let's Start a Conversation
+              Let&apos;s Start a Conversation
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Whether you're looking to discuss a project, ask a question, or explore how we can work together, we're here to help.
+              Whether you&apos;re looking to discuss a project, ask a question, or explore how we can work together, we&apos;re here to help.
             </p>
           </div>
         </div>
@@ -168,7 +168,7 @@ const Contact = () => {
               },
               {
                 question: 'How long does a typical project take to complete?',
-                answer: 'Project timelines vary depending on the scope, complexity, and specific requirements. A simple website might take 4-6 weeks, while a comprehensive mobile app or enterprise solution could take 3-6 months or more. During our initial consultation, we'll provide a detailed timeline based on your project specifications.'
+                answer: 'Project timelines vary depending on the scope, complexity, and specific requirements. A simple website might take 4-6 weeks, while a comprehensive mobile app or enterprise solution could take 3-6 months or more. During our initial consultation, we\'ll provide a detailed timeline based on your project specifications.'
               },
               {
                 question: 'Do you offer ongoing maintenance and support?',
@@ -176,7 +176,7 @@ const Contact = () => {
               },
               {
                 question: 'How do you handle project management and communication?',
-                answer: 'We follow agile methodologies with regular sprint cycles and standups. You'll have access to a dedicated project manager who serves as your main point of contact. We use collaboration tools like Jira, Slack, and Figma to maintain transparent communication and provide regular updates on project progress.'
+                answer: 'We follow agile methodologies with regular sprint cycles and standups. You\'ll have access to a dedicated project manager who serves as your main point of contact. We use collaboration tools like Jira, Slack, and Figma to maintain transparent communication and provide regular updates on project progress.'
               },
               {
                 question: 'What technologies do you work with?',

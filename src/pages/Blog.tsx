@@ -40,7 +40,7 @@ const blogPosts = [
   },
   {
     title: 'The Rise of Passwordless Authentication',
-    excerpt: 'An in-depth look at passwordless authentication methods and how they're improving security while enhancing the user experience.',
+    excerpt: 'An in-depth look at passwordless authentication methods and how they\'re improving security while enhancing the user experience.',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     date: 'April 22, 2023',
     category: 'Security',
