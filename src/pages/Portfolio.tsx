@@ -9,6 +9,30 @@ import Footer from '../components/layout/Footer';
 // Project data with categories
 const projects = [
   {
+    title: 'MYT Rugs',
+    category: 'Web Application',
+    image: '/myt.png',
+    description: 'Developed a high-end carpet emporium website for MYT Rugs, designed to showcase luxury carpets with a seamless user experience. The website emphasizes elegance, craftsmanship, and style, providing customers with an intuitive platform to explore and purchase carpets.',
+    link: 'https://myt-rugs.com/',
+    tags: ['React', 'Node.js', 'D3.js', 'MongoDB']
+  },
+  {
+    title: 'Royal Rugs',
+    category: 'Web Application',
+    image: '/royal.png',
+    description: 'Royal Rugs, a high-end carpet emporium, needed a digital presence as refined as their handcrafted collection. My goal was to design and develop a website that not only showcased their luxurious rugs but also provided an immersive browsing experience for their customers.',
+    link: 'https://royalrugs.co.in/',
+    tags: ['React', 'Node.js', 'D3.js', 'MongoDB']
+  },
+  {
+    title: 'The Hetu',
+    category: 'Web Application',
+    image: '/hetu.png',
+    description: 'The app that turns finding skilled workers into a hassle-free experience, Connecting you with trusted professionals in your area and making every job effortless.',
+    link: 'https://thehetu.com/',
+    tags: ['React', 'Node.js', 'D3.js', 'MongoDB']
+  },
+  {
     title: 'FinTech Dashboard',
     category: 'Web Application',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',

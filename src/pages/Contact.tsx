@@ -105,7 +105,7 @@ const Contact = () => {
                     <div>
                       <h4 className="font-semibold mb-1">Live Chat</h4>
                       <p className="text-sm text-muted-foreground mb-2">Talk to our support team in real-time.</p>
-                      <a href="#" className="text-tech-blue text-sm font-medium group-hover:text-tech-lightBlue transition-colors inline-flex items-center">
+                      <a href="https://wa.me/917310044004" className="text-tech-blue text-sm font-medium group-hover:text-tech-lightBlue transition-colors inline-flex items-center">
                         Start a chat
                         <ArrowRight size={14} className="ml-1" />
                       </a>

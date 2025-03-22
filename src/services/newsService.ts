@@ -44,7 +44,7 @@ interface BlogPost {
 
 // In a real production app, this would be an environment variable
 // Consider using a backend proxy to hide API keys
-const NEWS_API_KEY = process.env.NEWS_API_KEY || 'pub_75765c3194c751e6aefa5d27ee6831f005481';
+const NEWS_API_KEY = 'pub_75765c3194c751e6aefa5d27ee6831f005481';
 const NEWS_API_URL = 'https://newsdata.io/api/1/news';
 
 // Enhanced with retry logic and cache validation
