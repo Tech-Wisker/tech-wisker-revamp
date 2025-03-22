@@ -1,13 +1,15 @@
-
-import { useState } from 'react';
-import { Search, Calendar } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Calendar, Loader2 } from 'lucide-react';
 import AnimatedGradient from '../components/ui/AnimatedGradient';
 import BlogCard from '../components/ui/BlogCard';
 import NavBar from '../components/layout/NavBar';
 import Footer from '../components/layout/Footer';
+import { fetchTechNews, convertNewsToBlogPosts } from '../services/newsService';
+import ShareButtons from '../components/ui/ShareButtons';
+import { useToast } from "@/components/ui/use-toast";
 
-// Blog post data
-const blogPosts = [
+// Default blog post data as fallback
+const defaultBlogPosts = [
   {
     title: 'The Future of AI in Software Development',
     excerpt: 'Explore how artificial intelligence is transforming the software development process, from code generation to automated testing and beyond.',
@@ -103,14 +105,43 @@ const blogPosts = [
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [blogPosts, setBlogPosts] = useState(defaultBlogPosts);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
   
-  const categories = ['All', 'AI', 'DevOps', 'Mobile', 'Web', 'Security', 'Design'];
+  useEffect(() => {
+    const loadNews = async () => {
+      setLoading(true);
+      try {
+        const newsArticles = await fetchTechNews();
+        if (newsArticles.length > 0) {
+          const formattedPosts = convertNewsToBlogPosts(newsArticles);
+          setBlogPosts(formattedPosts);
+        }
+      } catch (error) {
+        console.error('Failed to load news:', error);
+        toast({
+          title: "Error loading news",
+          description: "Could not load the latest technology news. Using default articles instead.",
+          variant: "destructive",
+          duration: 5000,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadNews();
+  }, [toast]);
+  
+  // Extract unique categories from the blog posts
+  const categories = ['All', ...Array.from(new Set(blogPosts.map(post => post.category)))];
   
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+                          (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
     
     return matchesCategory && matchesSearch;
   });
@@ -173,8 +204,16 @@ const Blog = () => {
             </div>
           </div>
           
+          {/* Loading State */}
+          {loading && (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 size={40} className="animate-spin text-tech-blue" />
+              <span className="ml-3 text-lg">Loading latest tech news...</span>
+            </div>
+          )}
+          
           {/* Featured Post */}
-          {filteredPosts.length > 0 && (
+          {!loading && filteredPosts.length > 0 && (
             <div className="mb-12 animate-fade-in">
               <div className="tech-card overflow-hidden group">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -203,20 +242,29 @@ const Blog = () => {
                     </p>
                     <div className="flex justify-between items-center pt-4">
                       <span className="text-sm text-muted-foreground">{filteredPosts[0].author}</span>
-                      <a 
-                        href={filteredPosts[0].link} 
-                        className="inline-flex items-center text-tech-blue font-medium hover:text-tech-lightBlue transition-colors"
-                      >
-                        Read full article
-                        <svg 
-                          className="ml-1 w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
-                          fill="none" 
-                          viewBox="0 0 24 24" 
-                          stroke="currentColor"
+                      <div className="flex items-center gap-2">
+                        <ShareButtons 
+                          title={filteredPosts[0].title}
+                          url={filteredPosts[0].link}
+                          description={filteredPosts[0].excerpt}
+                        />
+                        <a 
+                          href={filteredPosts[0].link} 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-tech-blue font-medium hover:text-tech-lightBlue transition-colors"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </a>
+                          Read full article
+                          <svg 
+                            className="ml-1 w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -225,7 +273,7 @@ const Blog = () => {
           )}
           
           {/* Blog Grid */}
-          {filteredPosts.length > 1 ? (
+          {!loading && filteredPosts.length > 1 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.slice(1).map((post, index) => (
                 <div key={index} className="animate-fade-in" style={{animationDelay: `${index * 100}ms`}}>
@@ -233,7 +281,7 @@ const Blog = () => {
                 </div>
               ))}
             </div>
-          ) : filteredPosts.length === 0 && (
+          ) : !loading && filteredPosts.length === 0 && (
             <div className="text-center py-16">
               <h3 className="text-xl font-semibold mb-2">No articles found</h3>
               <p className="text-muted-foreground">Try adjusting your search or filter criteria</p>

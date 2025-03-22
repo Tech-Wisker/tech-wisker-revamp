@@ -1,4 +1,6 @@
 
+import ShareButtons from './ShareButtons';
+
 interface BlogCardProps {
   title: string;
   excerpt: string;
@@ -7,9 +9,15 @@ interface BlogCardProps {
   category: string;
   author: string;
   link: string;
+  tags?: string[];
+  source?: {
+    name: string;
+    url: string;
+    icon?: string;
+  };
 }
 
-const BlogCard = ({ title, excerpt, image, date, category, author, link }: BlogCardProps) => {
+const BlogCard = ({ title, excerpt, image, date, category, author, link, source }: BlogCardProps) => {
   return (
     <div className="tech-card h-full flex flex-col overflow-hidden group">
       <div className="h-48 overflow-hidden rounded-lg mb-4">
@@ -35,21 +43,48 @@ const BlogCard = ({ title, excerpt, image, date, category, author, link }: BlogC
       </div>
       <div className="flex justify-between items-center pt-4 mt-auto">
         <span className="text-sm text-muted-foreground">{author}</span>
-        <a 
-          href={link} 
-          className="inline-flex items-center text-tech-blue font-medium hover:text-tech-lightBlue transition-colors"
-        >
-          Read more
-          <svg 
-            className="ml-1 w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+        <div className="flex items-center gap-2">
+          <ShareButtons 
+            title={title}
+            url={link}
+            description={excerpt}
+          />
+          <a 
+            href={link} 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-tech-blue font-medium hover:text-tech-lightBlue transition-colors"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
+            Read more
+            <svg 
+              className="ml-1 w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
       </div>
+      {source && (
+        <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-800">
+          <div className="flex items-center text-xs text-muted-foreground">
+            <span>Source: </span>
+            <a 
+              href={source.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="ml-1 hover:text-tech-blue transition-colors flex items-center"
+            >
+              {source.icon && (
+                <img src={source.icon} alt={source.name} className="w-4 h-4 mr-1 rounded-sm" />
+              )}
+              {source.name}
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
