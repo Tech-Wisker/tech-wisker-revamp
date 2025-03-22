@@ -56,7 +56,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" target='blank' action="https://formsubmit.co/dfdeaeaba4e96b09109295e24ee65773" method="POST">
+    <form className="space-y-6" target='blank' action="https://formsubmit.co/dfdeaeaba4e96b09109295e24ee65773" method="POST">
       <input type="hidden" name="_subject" value="New contact from Tech Wisker website" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_next" value={window.location.href} />
