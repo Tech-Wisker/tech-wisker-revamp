@@ -1,13 +1,25 @@
 
-import { Mail, Phone, MapPin, MessageSquare, Users, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MessageSquare, Users, ArrowRight } from 'lucide-react';
 import AnimatedGradient from '../components/ui/AnimatedGradient';
 import ContactForm from '../components/ui/ContactForm';
 import NavBar from '../components/layout/NavBar';
 import Footer from '../components/layout/Footer';
+import { Helmet } from 'react-helmet-async';
 
 const Contact = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>Contact Us | Tech Wisker</title>
+        <meta name="description" content="Get in touch with Tech Wisker for cutting-edge technology solutions. We're here to help with your web development, mobile app, DevOps, and AI services needs." />
+        <meta name="keywords" content="tech wisker, contact us, technology services, remote tech company, web development, mobile app development" />
+        <link rel="canonical" href="https://techwisker.com/contact" />
+        <meta property="og:title" content="Contact Tech Wisker | Technology Solutions" />
+        <meta property="og:description" content="Reach out to our team for innovative technology solutions and services." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://techwisker.com/contact" />
+      </Helmet>
+      
       <NavBar />
       
       {/* Hero Section */}
@@ -31,28 +43,21 @@ const Contact = () => {
       {/* Contact Information */}
       <section className="py-8 px-4 md:px-6">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             {[
               {
                 icon: <Mail size={24} className="text-tech-blue" />,
                 title: 'Email Us',
                 description: 'Our friendly team is here to help.',
-                detail: 'info@techwisker.com',
-                link: 'mailto:info@techwisker.com'
+                detail: 'techwisker@gmail.com',
+                link: 'mailto:techwisker@gmail.com'
               },
               {
                 icon: <Phone size={24} className="text-tech-blue" />,
                 title: 'Call Us',
-                description: 'Mon-Fri from 8am to 5pm.',
-                detail: '+1 (123) 456-7890',
-                link: 'tel:+11234567890'
-              },
-              {
-                icon: <MapPin size={24} className="text-tech-blue" />,
-                title: 'Visit Us',
-                description: 'Come say hello at our office.',
-                detail: '1234 Innovation Drive, Tech City, TC 98765',
-                link: '#'
+                description: 'Available during business hours.',
+                detail: '+91 7310044004',
+                link: 'tel:+917310044004'
               }
             ].map((item, index) => (
               <div key={index} className="tech-card text-center group animate-fade-in" style={{animationDelay: `${index * 100}ms`}}>
@@ -78,15 +83,17 @@ const Contact = () => {
               <ContactForm />
             </div>
             
-            {/* Map & Other Info */}
+            {/* Remote & Other Info */}
             <div className="space-y-8 animate-fade-in" style={{animationDelay: '200ms'}}>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-xl">
-                <iframe 
-                  title="Office Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d158858.47340002653!2d-122.41941550000001!3d37.77492950000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1623772783194!5m2!1sen!2s" 
-                  className="w-full h-full border-0"
-                  loading="lazy"
-                ></iframe>
+              <div className="tech-card">
+                <h3 className="text-xl font-semibold mb-4">We&apos;re Remote-First</h3>
+                <p className="text-muted-foreground mb-4">
+                  Tech Wisker operates as a fully remote company with team members across different time zones. 
+                  This allows us to provide 24/7 service and tap into global talent to deliver the best solutions for our clients.
+                </p>
+                <p className="text-muted-foreground">
+                  We leverage modern collaboration tools to ensure seamless communication and project management regardless of physical location.
+                </p>
               </div>
               
               <div className="space-y-6">
@@ -127,11 +134,11 @@ const Contact = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span>Monday - Friday</span>
-                    <span className="font-medium">8:00 AM - 5:00 PM</span>
+                    <span className="font-medium">8:00 AM - 5:00 PM IST</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>Saturday</span>
-                    <span className="font-medium">10:00 AM - 2:00 PM</span>
+                    <span className="font-medium">10:00 AM - 2:00 PM IST</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>Sunday</span>
@@ -163,6 +170,10 @@ const Contact = () => {
           <div className="max-w-3xl mx-auto">
             {[
               {
+                question: 'How does your remote work process operate?',
+                answer: 'We use a combination of collaborative tools like Slack, Zoom, and project management software to maintain constant communication. We schedule regular check-ins based on your time zone and provide progress updates throughout the project lifecycle.'
+              },
+              {
                 question: 'What industries do you specialize in?',
                 answer: 'We have experience working with clients across various industries, including fintech, healthcare, e-commerce, education, manufacturing, and more. Our diverse expertise allows us to understand the unique challenges and requirements of different sectors.'
               },
@@ -173,10 +184,6 @@ const Contact = () => {
               {
                 question: 'Do you offer ongoing maintenance and support?',
                 answer: 'Yes, we offer flexible maintenance and support packages to ensure your digital products continue to run smoothly after launch. Our support services include bug fixes, security updates, performance optimization, and feature enhancements. We can tailor a support plan that meets your specific needs and budget.'
-              },
-              {
-                question: 'How do you handle project management and communication?',
-                answer: 'We follow agile methodologies with regular sprint cycles and standups. You\'ll have access to a dedicated project manager who serves as your main point of contact. We use collaboration tools like Jira, Slack, and Figma to maintain transparent communication and provide regular updates on project progress.'
               },
               {
                 question: 'What technologies do you work with?',

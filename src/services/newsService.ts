@@ -34,7 +34,7 @@ const NEWS_API_URL = 'https://newsdata.io/api/1/news';
 export const fetchTechNews = async (): Promise<NewsArticle[]> => {
   try {
     const response = await fetch(
-      `${NEWS_API_URL}?apikey=${NEWS_API_KEY}&language=en&category=technology`
+      `${NEWS_API_URL}?apikey=${NEWS_API_KEY}&language=en&category=technology&q=IT`
     );
     
     if (!response.ok) {

@@ -18,25 +18,49 @@ const ContactForm = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success('Message sent successfully! We will get back to you soon.');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const formElement = e.target as HTMLFormElement;
+      const formAction = "https://formsubmit.co/techwisker@gmail.com";
+      
+      const formData = new FormData(formElement);
+      
+      const response = await fetch(formAction, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
-    }, 1500);
+      
+      if (response.ok) {
+        toast.success('Message sent successfully! We will get back to you soon.');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      toast.error('Failed to send message. Please try again later.');
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" action="https://formsubmit.co/techwisker@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New contact from Tech Wisker website" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value={window.location.href} />
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-medium">

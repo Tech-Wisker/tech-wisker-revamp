@@ -1,3 +1,10 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://techwisker.com/sitemap.xml
+
+# Allow all search engines to crawl the site
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +17,10 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+User-agent: LinkedInBot
 Allow: /
+
+# Disallow crawling of specific content
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/

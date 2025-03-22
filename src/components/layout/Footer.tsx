@@ -1,6 +1,7 @@
 
 import { NavLink } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import { Mail, Phone, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import TechWiskerLogo from '../ui/TechWiskerLogo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,26 +9,24 @@ const Footer = () => {
   return (
     <footer className="bg-tech-darker border-t border-white/5">
       <div className="container mx-auto py-16 px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-tech-blue to-tech-purple">
-              Tech Wisker
-            </h3>
+            <TechWiskerLogo />
             <p className="text-muted-foreground max-w-xs">
               Cutting-edge technology solutions for forward-thinking businesses. We transform ideas into powerful digital experiences.
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors" aria-label="Facebook">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-tech-blue transition-colors" aria-label="Instagram">
                 <Instagram size={20} />
               </a>
             </div>
@@ -55,38 +54,18 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Services */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Services</h4>
-            <nav className="flex flex-col space-y-2">
-              <NavLink to="/services" className="text-muted-foreground hover:text-tech-blue transition-colors">
-                Mobile App Development
-              </NavLink>
-              <NavLink to="/services" className="text-muted-foreground hover:text-tech-blue transition-colors">
-                Web Development
-              </NavLink>
-              <NavLink to="/services" className="text-muted-foreground hover:text-tech-blue transition-colors">
-                DevOps Solutions
-              </NavLink>
-              <NavLink to="/services" className="text-muted-foreground hover:text-tech-blue transition-colors">
-                Agentic AI Services
-              </NavLink>
-            </nav>
-          </div>
-
           {/* Contact Info */}
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Contact Us</h4>
             <div className="flex flex-col space-y-3">
-              <a href="mailto:info@techwisker.com" className="flex items-center gap-2 text-muted-foreground hover:text-tech-blue transition-colors">
-                <Mail size={18} /> info@techwisker.com
+              <a href="mailto:techwisker@gmail.com" className="flex items-center gap-2 text-muted-foreground hover:text-tech-blue transition-colors">
+                <Mail size={18} /> techwisker@gmail.com
               </a>
-              <a href="tel:+11234567890" className="flex items-center gap-2 text-muted-foreground hover:text-tech-blue transition-colors">
-                <Phone size={18} /> +1 (123) 456-7890
+              <a href="tel:+917310044004" className="flex items-center gap-2 text-muted-foreground hover:text-tech-blue transition-colors">
+                <Phone size={18} /> +91 7310044004
               </a>
-              <p className="flex items-start gap-2 text-muted-foreground">
-                <MapPin size={18} className="mt-1 flex-shrink-0" /> 
-                <span>1234 Innovation Drive, Tech City, TC 98765</span>
+              <p className="text-sm text-muted-foreground mt-4">
+                We are a remote-first company with team members working across different time zones.
               </p>
             </div>
           </div>
