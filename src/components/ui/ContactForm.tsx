@@ -24,7 +24,7 @@ const ContactForm = () => {
     
     try {
       const formElement = e.target as HTMLFormElement;
-      const formAction = "https://formsubmit.co/techwisker@gmail.com";
+      const formAction = "https://formsubmit.co/dfdeaeaba4e96b09109295e24ee65773";
       
       const formData = new FormData(formElement);
       
@@ -56,7 +56,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" action="https://formsubmit.co/techwisker@gmail.com" method="POST">
+    <form onSubmit={handleSubmit} className="space-y-6" target='blank' action="https://formsubmit.co/dfdeaeaba4e96b09109295e24ee65773" method="POST">
       <input type="hidden" name="_subject" value="New contact from Tech Wisker website" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_next" value={window.location.href} />
