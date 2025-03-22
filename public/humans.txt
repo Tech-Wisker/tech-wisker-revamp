@@ -1,0 +1,12 @@
+
+/* TEAM */
+Developer: TechWisker Team
+Contact: info@techwisker.com
+Twitter: @techwisker
+From: Global
+
+/* SITE */
+Last update: 2025-03-22
+Language: English
+Doctype: HTML5
+IDE: Visual Studio Code, Figma

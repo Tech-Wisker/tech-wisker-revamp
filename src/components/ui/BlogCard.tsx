@@ -1,4 +1,5 @@
 
+import { memo } from 'react';
 import ShareButtons from './ShareButtons';
 
 interface BlogCardProps {
@@ -17,19 +18,23 @@ interface BlogCardProps {
   };
 }
 
-const BlogCard = ({ title, excerpt, image, date, category, author, link, source }: BlogCardProps) => {
+// Using memo to prevent unnecessary re-renders
+const BlogCard = memo(({ title, excerpt, image, date, category, author, link, source }: BlogCardProps) => {
   return (
-    <div className="tech-card h-full flex flex-col overflow-hidden group">
+    <article className="tech-card h-full flex flex-col overflow-hidden group">
       <div className="h-48 overflow-hidden rounded-lg mb-4">
         <img 
           src={image} 
           alt={title} 
           className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          width="400"
+          height="225"
         />
       </div>
       <div className="space-y-3 flex-grow">
         <div className="flex justify-between items-center text-sm text-muted-foreground">
-          <span>{date}</span>
+          <time dateTime={new Date(date).toISOString()}>{date}</time>
           <span className="px-2 py-1 bg-tech-blue/10 text-tech-blue rounded-full">
             {category}
           </span>
@@ -54,6 +59,7 @@ const BlogCard = ({ title, excerpt, image, date, category, author, link, source 
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-tech-blue font-medium hover:text-tech-lightBlue transition-colors"
+            aria-label={`Read more about ${title}`}
           >
             Read more
             <svg 
@@ -61,6 +67,7 @@ const BlogCard = ({ title, excerpt, image, date, category, author, link, source 
               fill="none" 
               viewBox="0 0 24 24" 
               stroke="currentColor"
+              aria-hidden="true"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -76,17 +83,20 @@ const BlogCard = ({ title, excerpt, image, date, category, author, link, source 
               target="_blank" 
               rel="noopener noreferrer"
               className="ml-1 hover:text-tech-blue transition-colors flex items-center"
+              aria-label={`Visit source: ${source.name}`}
             >
               {source.icon && (
-                <img src={source.icon} alt={source.name} className="w-4 h-4 mr-1 rounded-sm" />
+                <img src={source.icon} alt="" className="w-4 h-4 mr-1 rounded-sm" aria-hidden="true" />
               )}
               {source.name}
             </a>
           </div>
         </div>
       )}
-    </div>
+    </article>
   );
-};
+});
+
+BlogCard.displayName = 'BlogCard';
 
 export default BlogCard;
