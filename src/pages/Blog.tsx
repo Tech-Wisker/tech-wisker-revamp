@@ -147,22 +147,22 @@ const Blog = () => {
 
   // Load news data with better error handling
   useEffect(() => {
-    const loadNews = async () => {
+    const loadNews = async (q) => {
       setLoading(true);
       setError(false);
       try {
-        const newsArticles = await fetchTechNews();
+        const newsArticles = await fetchTechNews(q);
         if (newsArticles.length > 0) {
           const formattedPosts = convertNewsToBlogPosts(newsArticles);
           setBlogPosts(formattedPosts);
           // Cache the fetched posts in localStorage with expiration
-          localStorage.setItem('cachedBlogPosts', JSON.stringify({
+          localStorage.setItem('cachedBlogPosts-'+q, JSON.stringify({
             timestamp: Date.now(),
             data: formattedPosts
           }));
         } else {
           // Check for cached posts if API returns empty
-          const cachedData = localStorage.getItem('cachedBlogPosts');
+          const cachedData = localStorage.getItem('cachedBlogPosts-'+q);
           if (cachedData) {
             const { timestamp, data } = JSON.parse(cachedData);
             // Use cache if less than 1 hour old
@@ -176,7 +176,7 @@ const Blog = () => {
         setError(true);
         
         // Try to load from cache on error
-        const cachedData = localStorage.getItem('cachedBlogPosts');
+        const cachedData = localStorage.getItem('cachedBlogPosts-'+q);
         if (cachedData) {
           const { timestamp, data } = JSON.parse(cachedData);
           // Use cache if less than 12 hours old
@@ -207,9 +207,9 @@ const Blog = () => {
         setLoading(false);
       }
     };
-    
-    loadNews();
-  }, [toast]);
+    const q = searchParams.get('search')
+    loadNews(q);
+  }, [toast,searchParams]);
 
   // Update URL parameters when search or category changes
   useEffect(() => {
@@ -248,15 +248,7 @@ const Blog = () => {
   // Extract unique categories from the blog posts
   const categories = ['All', ...Array.from(new Set(blogPosts.map(post => post.category)))];
   
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
-    const matchesSearch = !searchTerm || 
-                          post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
-    
-    return matchesCategory && matchesSearch;
-  });
+  const filteredPosts = [...blogPosts];
 
   // Handle newsletter submission
   const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {

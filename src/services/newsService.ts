@@ -48,9 +48,9 @@ const NEWS_API_KEY = 'pub_75765c3194c751e6aefa5d27ee6831f005481';
 const NEWS_API_URL = 'https://newsdata.io/api/1/news';
 
 // Enhanced with retry logic and cache validation
-export const fetchTechNews = async (): Promise<NewsArticle[]> => {
+export const fetchTechNews = async (q='IT'): Promise<NewsArticle[]> => {
   // Check for cached data first
-  const cachedData = localStorage.getItem('cachedNewsArticles');
+  const cachedData = localStorage.getItem('cachedNewsArticles-'+q);
   if (cachedData) {
     try {
       const { timestamp, data } = JSON.parse(cachedData);
@@ -73,7 +73,7 @@ export const fetchTechNews = async (): Promise<NewsArticle[]> => {
   while (retries < maxRetries) {
     try {
       const response = await fetch(
-        `${NEWS_API_URL}?apikey=${NEWS_API_KEY}&language=en&category=technology&q=IT`
+        `${NEWS_API_URL}?apikey=${NEWS_API_KEY}&language=en&category=technology&q=${q}`
       );
       
       if (!response.ok) {
@@ -87,7 +87,7 @@ export const fetchTechNews = async (): Promise<NewsArticle[]> => {
       }
       
       // Cache the successful response
-      localStorage.setItem('cachedNewsArticles', JSON.stringify({
+      localStorage.setItem('cachedNewsArticles-'+q, JSON.stringify({
         timestamp: Date.now(),
         data: data.results
       }));
