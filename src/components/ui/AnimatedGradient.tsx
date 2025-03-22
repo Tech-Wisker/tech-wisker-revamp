@@ -1,13 +1,18 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface AnimatedGradientProps {
   className?: string;
 }
 
 const AnimatedGradient: React.FC<AnimatedGradientProps> = ({ className = '' }) => {
+  const gradientRef = useRef<HTMLDivElement>(null);
+  
+  // No DOM manipulations in the component render cycle
+  // to avoid "Cannot read properties of undefined (reading 'add')" errors
+  
   return (
-    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`} ref={gradientRef}>
       <div 
         className="absolute -inset-[10%] opacity-30 mask-radial-gradient"
         aria-hidden="true"
