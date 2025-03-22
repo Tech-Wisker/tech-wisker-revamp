@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, Calendar, Loader2 } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import AnimatedGradient from '../components/ui/AnimatedGradient';
 import BlogCard from '../components/ui/BlogCard';
 import NavBar from '../components/layout/NavBar';
@@ -7,6 +8,8 @@ import Footer from '../components/layout/Footer';
 import { fetchTechNews, convertNewsToBlogPosts } from '../services/newsService';
 import ShareButtons from '../components/ui/ShareButtons';
 import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // Default blog post data as fallback
 const defaultBlogPosts = [
@@ -102,9 +105,22 @@ const defaultBlogPosts = [
   }
 ];
 
+// Pre-defined query categories
+const predefinedQueries = [
+  { label: 'AI', query: 'artificial intelligence' },
+  { label: 'Development', query: 'software development' },
+  { label: 'Web3', query: 'blockchain' },
+  { label: 'Cloud', query: 'cloud computing' },
+  { label: 'Mobile', query: 'mobile app' },
+  { label: 'DevOps', query: 'devops' },
+];
+
 const Blog = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState(searchParams.get('category') || 'All');
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const [inputValue, setInputValue] = useState(searchParams.get('search') || '');
   const [blogPosts, setBlogPosts] = useState(defaultBlogPosts);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -133,6 +149,31 @@ const Blog = () => {
     
     loadNews();
   }, [toast]);
+
+  // Update URL parameters when search or category changes
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (activeCategory !== 'All') {
+      params.set('category', activeCategory);
+    }
+    if (searchTerm) {
+      params.set('search', searchTerm);
+    }
+    
+    setSearchParams(params);
+  }, [activeCategory, searchTerm, setSearchParams]);
+
+  // Apply predefined query
+  const handlePredefinedQuery = (query: string) => {
+    setSearchTerm(query);
+    setInputValue(query);
+  };
+
+  // Handle search form submission
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSearchTerm(inputValue);
+  };
   
   // Extract unique categories from the blog posts
   const categories = ['All', ...Array.from(new Set(blogPosts.map(post => post.category)))];
@@ -168,12 +209,12 @@ const Blog = () => {
         </div>
       </section>
       
-      {/* Filter and Search */}
+      {/* Filter, Prewritten Queries and Search */}
       <section className="py-8 px-4 md:px-6">
         <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+          <div className="flex flex-col gap-6 mb-8">
             {/* Category Filters */}
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start w-full md:w-auto">
+            <div className="flex flex-wrap gap-3 justify-center w-full">
               {categories.map((category, index) => (
                 <button 
                   key={index}
@@ -189,18 +230,43 @@ const Blog = () => {
               ))}
             </div>
             
+            {/* Predefined Query Buttons */}
+            <div className="flex flex-wrap gap-3 justify-center w-full">
+              {predefinedQueries.map((queryItem, index) => (
+                <Button 
+                  key={index}
+                  variant="outline"
+                  className={`rounded-full text-sm ${
+                    searchTerm === queryItem.query 
+                      ? 'bg-tech-purple/10 text-tech-purple border-tech-purple' 
+                      : ''
+                  }`}
+                  onClick={() => handlePredefinedQuery(queryItem.query)}
+                >
+                  {queryItem.label}
+                </Button>
+              ))}
+            </div>
+            
             {/* Search */}
-            <div className="relative w-full md:w-64">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search size={18} className="text-muted-foreground" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 w-full rounded-lg bg-muted border border-white/5 focus:border-tech-blue/50 focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all"
-              />
+            <div className="w-full max-w-lg mx-auto">
+              <form onSubmit={handleSearchSubmit} className="flex gap-2">
+                <div className="relative flex-grow">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search size={18} className="text-muted-foreground" />
+                  </div>
+                  <Input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full"
+                  />
+                </div>
+                <Button type="submit" className="bg-tech-blue hover:bg-tech-blue/90">
+                  Search
+                </Button>
+              </form>
             </div>
           </div>
           
