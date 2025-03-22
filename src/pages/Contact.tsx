@@ -13,7 +13,6 @@ const Contact = () => {
         <title>Contact Us | Tech Wisker</title>
         <meta name="description" content="Get in touch with Tech Wisker for cutting-edge technology solutions. We're here to help with your web development, mobile app, DevOps, and AI services needs." />
         <meta name="keywords" content="tech wisker, contact us, technology services, remote tech company, web development, mobile app development" />
-        <link rel="canonical" href="https://techwisker.com/contact" />
         <meta property="og:title" content="Contact Tech Wisker | Technology Solutions" />
         <meta property="og:description" content="Reach out to our team for innovative technology solutions and services." />
         <meta property="og:type" content="website" />
@@ -31,10 +30,10 @@ const Contact = () => {
               Get In Touch
             </div>
             <h1 className="tech-heading max-w-3xl mx-auto">
-              Let&apos;s Start a Conversation
+              Let's Start a Conversation
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Whether you&apos;re looking to discuss a project, ask a question, or explore how we can work together, we&apos;re here to help.
+              Whether you're looking to discuss a project, ask a question, or explore how we can work together, we're here to help.
             </p>
           </div>
         </div>
@@ -86,7 +85,7 @@ const Contact = () => {
             {/* Remote & Other Info */}
             <div className="space-y-8 animate-fade-in" style={{animationDelay: '200ms'}}>
               <div className="tech-card">
-                <h3 className="text-xl font-semibold mb-4">We&apos;re Remote-First</h3>
+                <h3 className="text-xl font-semibold mb-4">We're Remote-First</h3>
                 <p className="text-muted-foreground mb-4">
                   Tech Wisker operates as a fully remote company with team members across different time zones. 
                   This allows us to provide 24/7 service and tap into global talent to deliver the best solutions for our clients.
