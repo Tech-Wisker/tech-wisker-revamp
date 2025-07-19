@@ -2,7 +2,7 @@
 
 ## Project Info
 
-**URL**: [Your Project URL](https://techwisker.com)
+**URL**: https://techwisker.com
 
 ## How Can I Edit This Code?
 
